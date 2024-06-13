@@ -1,0 +1,30 @@
+@keyframes borderAnimation {
+  0% {
+    border-color: transparent;
+    border-width: 0;
+  }
+  25% {
+    border-color: currentColor;
+    border-width: 2px 0 0 0;
+  }
+  50% {
+    border-width: 2px 2px 0 0;
+  }
+  75% {
+    border-width: 2px 2px 2px 0;
+  }
+  100% {
+    border-width: 2px 2px 2px 2px;
+  }
+}
+
+.hover-border-animation {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.hover-border-animation:hover {
+  animation: borderAnimation 0.5s forwards;
+}
