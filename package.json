@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "serve -s dist"  // Adjusted start script to serve the built files
+    "start": "serve -s dist"  
   },
   "dependencies": {
     "chart.js": "^4.4.3",
