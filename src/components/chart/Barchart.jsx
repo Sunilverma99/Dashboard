@@ -1,10 +1,12 @@
-import React from 'react';
-import { Bar ,Line } from 'react-chartjs-2';
+import React, { useEffect, useState } from 'react';
+import { Bar, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 Chart.register(CategoryScale);
 
 const BarChart = () => {
+  const [refresh, setRefresh] = useState(false);
+
   const barData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -41,12 +43,11 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: 'Company sales and Expenses',
+        text: 'Company Sales and Expenses',
       },
     },
   };
 
-  // Line chart data and options
   const lineData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -80,19 +81,31 @@ const BarChart = () => {
     },
   };
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        setRefresh(prev => !prev);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   return (
     <div className='w-full h-full flex justify-center items-center p-2'>
-      <div className='w-full max-w-screen-xl lg:grid  lg:grid-cols-2 gap-4'>
+      <div className='w-full max-w-screen-xl lg:grid lg:grid-cols-2 gap-4'>
         <div>
           <div className='h-full'>
-            <Bar data={barData} options={barOptions} />
+            <Bar key={refresh} data={barData} options={barOptions} />
           </div>
         </div>
-
-        
         <div>
           <div className='h-full'>
-            <Line data={lineData} options={lineOptions} />
+            <Line key={refresh} data={lineData} options={lineOptions} />
           </div>
         </div>
       </div>
